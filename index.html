@@ -50,6 +50,7 @@
       </div>
       <div class="hidden md:flex items-center gap-8 text-sm text-text-muted">
         <a href="#layers" class="hover:text-text transition-colors">Architecture</a>
+        <a href="#compatibility" class="hover:text-text transition-colors">Compatibility</a>
         <a href="#features" class="hover:text-text transition-colors">Features</a>
         <a href="#integration" class="hover:text-text transition-colors">Integration</a>
         <a href="#integration" class="px-4 py-2 rounded-lg border border-border hover:border-accent/50 hover:text-accent transition-all">Get Started</a>
@@ -161,6 +162,45 @@
           <p class="text-sm text-text-muted">New facts are checked against existing knowledge. Conflicts surface for human resolution — the system never silently overwrites what it knows.</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Compatibility Matrix -->
+  <section id="compatibility" class="py-24 px-6 border-t border-border">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-4">Works Everywhere</h2>
+        <p class="text-text-muted max-w-2xl mx-auto">One MCP server. Every major agent platform. Drop-in integration with the tools you already use.</p>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm border-collapse">
+          <thead>
+            <tr class="border-b border-border">
+              <th class="text-left py-3 px-4 text-text-muted font-medium">Platform</th>
+              <th class="text-left py-3 px-4 text-text-muted font-medium hidden sm:table-cell">Type</th>
+              <th class="text-center py-3 px-4 text-text-muted font-medium">MCP</th>
+              <th class="text-center py-3 px-4 text-text-muted font-medium">Auto-Memory</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border/50">
+            <tr><td class="py-2.5 px-4 font-medium">Kiro CLI / IDE / Web</td><td class="py-2.5 px-4 text-text-muted hidden sm:table-cell">CLI + IDE</td><td class="py-2.5 px-4 text-center text-accent">✓</td><td class="py-2.5 px-4 text-center text-accent">✓</td></tr>
+            <tr><td class="py-2.5 px-4 font-medium">Cursor</td><td class="py-2.5 px-4 text-text-muted hidden sm:table-cell">IDE</td><td class="py-2.5 px-4 text-center text-accent">✓</td><td class="py-2.5 px-4 text-center text-accent">✓</td></tr>
+            <tr><td class="py-2.5 px-4 font-medium">Claude Code</td><td class="py-2.5 px-4 text-text-muted hidden sm:table-cell">CLI</td><td class="py-2.5 px-4 text-center text-accent">✓</td><td class="py-2.5 px-4 text-center text-accent">✓</td></tr>
+            <tr><td class="py-2.5 px-4 font-medium">Codex (OpenAI)</td><td class="py-2.5 px-4 text-text-muted hidden sm:table-cell">CLI</td><td class="py-2.5 px-4 text-center text-accent">✓</td><td class="py-2.5 px-4 text-center text-accent">✓</td></tr>
+            <tr><td class="py-2.5 px-4 font-medium">GitHub Copilot</td><td class="py-2.5 px-4 text-text-muted hidden sm:table-cell">IDE Extension</td><td class="py-2.5 px-4 text-center text-accent">✓</td><td class="py-2.5 px-4 text-center text-accent">✓</td></tr>
+            <tr><td class="py-2.5 px-4 font-medium">Windsurf</td><td class="py-2.5 px-4 text-text-muted hidden sm:table-cell">IDE</td><td class="py-2.5 px-4 text-center text-accent">✓</td><td class="py-2.5 px-4 text-center text-accent">✓</td></tr>
+            <tr><td class="py-2.5 px-4 font-medium">Cline</td><td class="py-2.5 px-4 text-text-muted hidden sm:table-cell">VS Code Extension</td><td class="py-2.5 px-4 text-center text-accent">✓</td><td class="py-2.5 px-4 text-center text-accent">✓</td></tr>
+            <tr><td class="py-2.5 px-4 font-medium">Continue</td><td class="py-2.5 px-4 text-text-muted hidden sm:table-cell">VS Code / JetBrains</td><td class="py-2.5 px-4 text-center text-accent">✓</td><td class="py-2.5 px-4 text-center text-accent">✓</td></tr>
+            <tr><td class="py-2.5 px-4 font-medium">JetBrains AI (Junie)</td><td class="py-2.5 px-4 text-text-muted hidden sm:table-cell">IDE</td><td class="py-2.5 px-4 text-center text-accent">✓</td><td class="py-2.5 px-4 text-center text-accent">✓</td></tr>
+            <tr><td class="py-2.5 px-4 font-medium">Zed AI</td><td class="py-2.5 px-4 text-text-muted hidden sm:table-cell">Editor</td><td class="py-2.5 px-4 text-center text-accent">✓</td><td class="py-2.5 px-4 text-center text-accent">✓</td></tr>
+            <tr><td class="py-2.5 px-4 font-medium">Augment Code</td><td class="py-2.5 px-4 text-text-muted hidden sm:table-cell">VS Code Extension</td><td class="py-2.5 px-4 text-center text-accent">✓</td><td class="py-2.5 px-4 text-center text-accent">✓</td></tr>
+            <tr><td class="py-2.5 px-4 font-medium">Hermes Agent</td><td class="py-2.5 px-4 text-text-muted hidden sm:table-cell">Agent Harness</td><td class="py-2.5 px-4 text-center text-accent">✓</td><td class="py-2.5 px-4 text-center text-accent">✓</td></tr>
+            <tr><td class="py-2.5 px-4 font-medium">OpenClaw</td><td class="py-2.5 px-4 text-text-muted hidden sm:table-cell">Agent Harness</td><td class="py-2.5 px-4 text-center text-accent">✓</td><td class="py-2.5 px-4 text-center text-accent">✓</td></tr>
+            <tr><td class="py-2.5 px-4 font-medium">KiroCrew</td><td class="py-2.5 px-4 text-text-muted hidden sm:table-cell">Orchestrator</td><td class="py-2.5 px-4 text-center text-accent">✓</td><td class="py-2.5 px-4 text-center text-accent">✓</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-center text-text-muted text-sm mt-6">Any platform that supports MCP servers + custom instructions gets full persistent memory.</p>
     </div>
   </section>
 
