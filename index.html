@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sirius Memory — Persistent Memory for AI Agents</title>
+  <meta name="description" content="Three-layer persistent memory system for AI agents. Cross-session recall, trust-scored facts, and semantic search — shared across all your machines.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='1.5'><path d='M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z'/><path d='M10 21h4'/><path d='M12 2v1'/><path d='M8.5 9.5c0-1.93 1.57-3.5 3.5-3.5'/></svg>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bg: '#09090b',
+            'bg-elevated': '#18181b',
+            'bg-card': '#1c1c20',
+            border: '#27272a',
+            'border-bright': '#3f3f46',
+            text: '#fafafa',
+            'text-muted': '#a1a1aa',
+            accent: '#10b981',
+            'accent-dim': '#065f46',
+            cyan: '#06b6d4',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; }
+    .gradient-text { background: linear-gradient(135deg, #10b981, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .glow { box-shadow: 0 0 60px -12px rgba(16, 185, 129, 0.15); }
+    .layer-card:hover { transform: translateY(-2px); transition: transform 0.2s; }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    .float { animation: float 6s ease-in-out infinite; }
+  </style>
+</head>
+<body class="bg-bg text-text antialiased" style="background:#09090b;color:#fafafa">
+
+  <!-- Nav -->
+  <nav class="fixed top-0 w-full z-50 border-b border-border/50 bg-bg/80 backdrop-blur-xl">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <svg class="w-7 h-7 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/>
+          <path d="M10 21h4"/><path d="M12 2v1"/><path d="M8.5 9.5c0-1.93 1.57-3.5 3.5-3.5"/>
+        </svg>
+        <span class="text-lg font-semibold">Sirius Memory</span>
+      </div>
+      <div class="hidden md:flex items-center gap-8 text-sm text-text-muted">
+        <a href="#layers" class="hover:text-text transition-colors">Architecture</a>
+        <a href="#features" class="hover:text-text transition-colors">Features</a>
+        <a href="#integration" class="hover:text-text transition-colors">Integration</a>
+        <a href="https://github.com/kalikid021/sirius-memory" class="px-4 py-2 rounded-lg border border-border hover:border-accent/50 hover:text-accent transition-all">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="min-h-screen flex items-center justify-center px-6 pt-16">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border text-sm text-text-muted mb-8">
+        <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+        Open Source · Self-Hostable
+      </div>
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-tight mb-6">
+        Your AI agents<br><span class="gradient-text">remember everything.</span>
+      </h1>
+      <p class="text-lg sm:text-xl text-text-muted max-w-2xl mx-auto mb-10 leading-relaxed">
+        A three-layer persistent memory system that gives AI agents durable recall
+        across sessions, machines, and frameworks. Facts accumulate. Context persists.
+        Trust evolves.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="https://github.com/kalikid021/sirius-memory" class="px-8 py-3 rounded-lg bg-accent text-bg font-medium hover:bg-accent/90 transition-colors">
+          Get Started
+        </a>
+        <a href="#layers" class="px-8 py-3 rounded-lg border border-border text-text-muted hover:border-border-bright hover:text-text transition-all">
+          How It Works
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Three Layers -->
+  <section id="layers" class="py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-4">Three Layers of Memory</h2>
+        <p class="text-text-muted max-w-2xl mx-auto">Each layer serves a distinct purpose, working together to give agents comprehensive, contextual recall without flooding the prompt.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- L1 -->
+        <div class="layer-card p-6 rounded-xl border border-border bg-bg-card glow">
+          <div class="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.25a8.25 8.25 0 0 1 15 0"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Layer 1 — File Memory</h3>
+          <p class="text-text-muted text-sm leading-relaxed">Always-on identity context. User profile, project state, system preferences — injected every turn without being asked. The agent knows who you are before you speak.</p>
+          <div class="mt-4 pt-4 border-t border-border">
+            <span class="text-xs text-text-muted uppercase tracking-wider">Always injected</span>
+          </div>
+        </div>
+        <!-- L2 -->
+        <div class="layer-card p-6 rounded-xl border border-border bg-bg-card glow">
+          <div class="w-10 h-10 rounded-lg bg-cyan/10 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.26 8.071l-.457 1.599a2.25 2.25 0 0 1-1.544 1.544l-1.599.457 1.599.457a2.25 2.25 0 0 1 1.544 1.544l.457 1.599.457-1.599a2.25 2.25 0 0 1 1.544-1.544l1.599-.457-1.599-.457a2.25 2.25 0 0 1-1.544-1.544l-.457-1.599Z"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Layer 2 — Holographic Facts</h3>
+          <p class="text-text-muted text-sm leading-relaxed">Entity-linked knowledge with trust scoring. Decisions, preferences, relationships — each fact carries confidence that evolves with feedback. Better facts surface higher.</p>
+          <div class="mt-4 pt-4 border-t border-border">
+            <span class="text-xs text-text-muted uppercase tracking-wider">Trust-ranked retrieval</span>
+          </div>
+        </div>
+        <!-- L3 -->
+        <div class="layer-card p-6 rounded-xl border border-border bg-bg-card glow">
+          <div class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Layer 3 — Vector Recall</h3>
+          <p class="text-text-muted text-sm leading-relaxed">Semantic search over ingested documents and past sessions. Ask a natural-language question, get the most relevant fragments — regardless of when they were stored.</p>
+          <div class="mt-4 pt-4 border-t border-border">
+            <span class="text-xs text-text-muted uppercase tracking-wider">Semantic similarity</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="py-24 px-6 border-t border-border">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-4">Built for Real-World Agents</h2>
+        <p class="text-text-muted max-w-2xl mx-auto">Not a demo. A production memory layer designed for reliability, speed, and the messy reality of multi-session agent work.</p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="p-5 rounded-xl border border-border bg-bg-elevated">
+          <h4 class="font-medium mb-2">Cross-Machine Sync</h4>
+          <p class="text-sm text-text-muted">Store a fact on your laptop. See it on your server. Shared memory pool across all your agents and machines — no sync, no conflicts.</p>
+        </div>
+        <div class="p-5 rounded-xl border border-border bg-bg-elevated">
+          <h4 class="font-medium mb-2">Adaptive Trust</h4>
+          <p class="text-sm text-text-muted">Facts earn trust through use. Helpful knowledge rises. Outdated or wrong facts decay. The system learns which memories matter.</p>
+        </div>
+        <div class="p-5 rounded-xl border border-border bg-bg-elevated">
+          <h4 class="font-medium mb-2">Scoped Directives</h4>
+          <p class="text-sm text-text-muted">Standing rules that apply only when relevant. "Always use snake_case" fires in Python sessions, not markdown editing. Context-aware behavior shaping.</p>
+        </div>
+        <div class="p-5 rounded-xl border border-border bg-bg-elevated">
+          <h4 class="font-medium mb-2">Offline Resilience</h4>
+          <p class="text-sm text-text-muted">Write-ahead log queues operations when the service is unreachable. Drains automatically on reconnection. No data lost, no user intervention.</p>
+        </div>
+        <div class="p-5 rounded-xl border border-border bg-bg-elevated">
+          <h4 class="font-medium mb-2">Budget-Managed Context</h4>
+          <p class="text-sm text-text-muted">One API call assembles all layers into a token-budgeted block. No prompt overflow. No manual assembly. Just inject and go.</p>
+        </div>
+        <div class="p-5 rounded-xl border border-border bg-bg-elevated">
+          <h4 class="font-medium mb-2">Contradiction Detection</h4>
+          <p class="text-sm text-text-muted">New facts are checked against existing knowledge. Conflicts surface for human resolution — the system never silently overwrites what it knows.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Integration -->
+  <section id="integration" class="py-24 px-6 border-t border-border">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl sm:text-4xl font-bold mb-6">Integrates via<br><span class="gradient-text">MCP Protocol</span></h2>
+          <p class="text-text-muted mb-6 leading-relaxed">
+            Sirius Memory speaks the Model Context Protocol — the open standard for tool integration.
+            Any agent framework that supports MCP gets persistent memory in minutes.
+          </p>
+          <ul class="space-y-3 text-sm">
+            <li class="flex items-center gap-3">
+              <span class="w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center text-accent text-xs">✓</span>
+              <span class="text-text-muted">13 tools — context assembly, fact CRUD, vector search, directives</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center text-accent text-xs">✓</span>
+              <span class="text-text-muted">stdio transport — spawned by the host, zero network config</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center text-accent text-xs">✓</span>
+              <span class="text-text-muted">Remote API or local Docker — your deployment, your data</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center text-accent text-xs">✓</span>
+              <span class="text-text-muted">Multi-tenant — isolated memory pools per API key</span>
+            </li>
+          </ul>
+        </div>
+        <div class="bg-bg-card border border-border rounded-xl p-6 font-mono text-sm overflow-x-auto">
+          <div class="text-text-muted mb-2"># Install in 3 commands</div>
+          <div class="text-accent">$ git clone</div>
+          <div class="text-text/70 pl-4">github.com/kalikid021/sirius-memory</div>
+          <div class="text-accent mt-2">$ cd integrations/kiro-cli && ./setup.sh</div>
+          <div class="text-text/70 pl-4">→ config, MCP registration, steering file</div>
+          <div class="text-accent mt-2">$ kiro-cli chat</div>
+          <div class="text-text/70 pl-4">→ memory active. agent knows you.</div>
+          <div class="mt-6 pt-4 border-t border-border text-text-muted text-xs">
+            Works with kiro-cli, KiroCrew, and any MCP-compatible agent host.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Architecture diagram -->
+  <section class="py-24 px-6 border-t border-border">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">One Memory, Every Machine</h2>
+      <p class="text-text-muted max-w-2xl mx-auto mb-12">All your agents share the same memory pool. A fact stored on Machine A is available on Machine B next turn.</p>
+      <div class="bg-bg-card border border-border rounded-xl p-8 font-mono text-sm text-text-muted float">
+        <div class="grid sm:grid-cols-3 gap-4 mb-6">
+          <div class="border border-border rounded-lg p-3 text-center">
+            <div class="text-text font-medium">Laptop</div>
+            <div class="text-xs mt-1">kiro-cli + MCP</div>
+          </div>
+          <div class="border border-border rounded-lg p-3 text-center">
+            <div class="text-text font-medium">Server</div>
+            <div class="text-xs mt-1">KiroCrew + MCP</div>
+          </div>
+          <div class="border border-border rounded-lg p-3 text-center">
+            <div class="text-text font-medium">Workstation</div>
+            <div class="text-xs mt-1">Any agent + MCP</div>
+          </div>
+        </div>
+        <div class="flex justify-center mb-4">
+          <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M12 4.5v15m0 0-6.75-6.75M12 19.5l6.75-6.75"/></svg>
+        </div>
+        <div class="border border-accent/30 rounded-lg p-4 bg-accent/5">
+          <div class="text-accent font-medium text-base">Sirius Memory API</div>
+          <div class="text-xs mt-1">L1 + L2 + L3 + Directives</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 px-6 border-t border-border">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">Give your agents a brain.</h2>
+      <p class="text-text-muted mb-8 text-lg">Open source. Self-hostable. Production-ready.</p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="https://github.com/kalikid021/sirius-memory" class="px-8 py-3 rounded-lg bg-accent text-bg font-medium hover:bg-accent/90 transition-colors">
+          View on GitHub
+        </a>
+        <a href="https://github.com/kalikid021/sirius-memory/blob/main/docs/kiro-cli-integration-spec.md" class="px-8 py-3 rounded-lg border border-border text-text-muted hover:border-border-bright hover:text-text transition-all">
+          Read the Spec
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-border py-8 px-6">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between text-sm text-text-muted">
+      <div class="flex items-center gap-2">
+        <svg class="w-4 h-4 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/>
+        </svg>
+        <span>Sirius Memory</span>
+      </div>
+      <div class="mt-4 sm:mt-0">Built for agents that need to remember.</div>
+    </div>
+  </footer>
+
+</body>
+</html>
